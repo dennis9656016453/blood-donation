@@ -58,12 +58,7 @@ function Home() {
               Join our college community of blood donors and make a difference in someone's life today.
             </p>
             <div className="home-hero-actions">
-              {isAuthenticated ? (
-                <Link to="/dashboard" className="btn btn-lg home-hero-btn-primary">
-                  Go to Dashboard
-                  <ArrowRight className="home-hero-btn-icon" />
-                </Link>
-              ) : (
+              {!isAuthenticated && (
                 <>
                   <Link to="/register" className="btn btn-lg home-hero-btn-primary">
                     Become a Donor
