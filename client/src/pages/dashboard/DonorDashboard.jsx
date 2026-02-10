@@ -14,6 +14,7 @@ import {
   AlertCircle
 } from 'lucide-react'
 import RequestsList from '../../components/RequestsList'
+import './DonorDashboard.css'
 
 function DonorDashboard({ user }) {
   const { unreadCount } = useNotifications()
@@ -80,40 +81,35 @@ function DonorDashboard({ user }) {
   return (
     <div className="space-y-8">
         {/* Profile Incomplete Alert */}
+        {/* Profile Incomplete Alert */}
         {profileIncomplete && (
-           <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg">
-             <div className="flex items-start">
-               <div className="flex-shrink-0">
-                 <AlertCircle className="h-5 w-5 text-yellow-400" />
-               </div>
-               <div className="ml-3 flex-1">
-                 <h3 className="text-sm font-medium text-yellow-800">
-                   Complete Your Donor Profile
-                 </h3>
-                 <div className="mt-2 text-sm text-yellow-700">
-                   <p>
-                     You need to complete your donor profile before you can view blood requests and participate in donations.
-                     Please provide your blood group, medical information, and other required details.
-                   </p>
-                 </div>
-                 <div className="mt-4">
-                   <Link
-                     to="/dashboard/profile"
-                     className="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-md transition-colors"
-                   >
-                     Complete Profile Now
-                   </Link>
-                 </div>
-               </div>
+           <div className="profile-alert-card">
+             <div className="profile-alert-icon">
+               <AlertCircle className="h-6 w-6" />
+             </div>
+             <div className="profile-alert-content">
+               <h3>
+                 Complete Your Donor Profile
+               </h3>
+               <p>
+                 You need to complete your donor profile before you can view blood requests and participate in donations.
+                 Please provide your blood group, medical information, and other required details.
+               </p>
+               <Link
+                 to="/dashboard/profile"
+                 className="profile-alert-btn"
+               >
+                 Complete Profile Now
+               </Link>
              </div>
            </div>
         )}
 
         {/* Stats Grid */}
         <div className="dashboard-stats-grid">
-          <div className="dashboard-stat-card">
+          <div className="dashboard-stat-card stat-red">
             <div className="dashboard-stat-content">
-              <div className="dashboard-stat-icon dashboard-stat-icon-red">
+              <div className="dashboard-stat-icon">
                 <Droplets className="dashboard-stat-icon-svg" />
               </div>
               <div className="dashboard-stat-text">
@@ -123,25 +119,22 @@ function DonorDashboard({ user }) {
             </div>
           </div>
 
-          <div className="dashboard-stat-card">
+          <div className="dashboard-stat-card stat-green">
             <div className="dashboard-stat-content">
-              <div className="dashboard-stat-icon dashboard-stat-icon-green">
+              <div className="dashboard-stat-icon">
                 <Clock className="dashboard-stat-icon-svg" />
               </div>
-              <div className="dashboard-stat-text w-full">
+              <div className="dashboard-stat-text">
                 <p className="dashboard-stat-label">Next Eligibility</p>
                 {stats.isEligible ? (
-                  <p className="dashboard-stat-value text-green-600 text-lg">Available Now</p>
+                  <p className="dashboard-stat-value available">Available Now</p>
                 ) : (
-                  <div className="flex flex-col mt-1">
-                    <span className="text-xs text-gray-500 uppercase font-bold">
+                  <div className="flex flex-col items-start mt-1">
+                    <span className="dashboard-stat-date-my">
                        {stats.lastDonation && format(addDays(new Date(stats.lastDonation), 90), 'MMM yyyy')}
                     </span>
-                    <span className="text-2xl font-bold text-gray-800">
+                    <span className="dashboard-stat-value text-xl">
                       {stats.lastDonation && format(addDays(new Date(stats.lastDonation), 90), 'd')}
-                    </span>
-                    <span className="text-xs text-gray-500">
-                      {stats.lastDonation && format(addDays(new Date(stats.lastDonation), 90), 'EEEE')}
                     </span>
                   </div>
                 )}
@@ -149,9 +142,9 @@ function DonorDashboard({ user }) {
             </div>
           </div>
 
-          <div className="dashboard-stat-card">
+          <div className="dashboard-stat-card stat-blue">
             <div className="dashboard-stat-content">
-              <div className="dashboard-stat-icon dashboard-stat-icon-blue">
+              <div className="dashboard-stat-icon">
                 <Bell className="dashboard-stat-icon-svg" />
               </div>
               <div className="dashboard-stat-text">
@@ -161,9 +154,9 @@ function DonorDashboard({ user }) {
             </div>
           </div>
 
-          <div className="dashboard-stat-card">
+          <div className="dashboard-stat-card stat-yellow">
             <div className="dashboard-stat-content">
-              <div className="dashboard-stat-icon dashboard-stat-icon-yellow">
+              <div className="dashboard-stat-icon">
                 <Calendar className="dashboard-stat-icon-svg" />
               </div>
               <div className="dashboard-stat-text">
@@ -184,52 +177,52 @@ function DonorDashboard({ user }) {
               <div className="space-y-4">
                   <Link
                     to="/dashboard/profile"
-                    className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="donor-action-card"
                   >
-                    <div className="p-2 bg-red-100 rounded-lg">
-                      <Users className="w-5 h-5 text-red-600" />
+                    <div className="donor-action-icon red">
+                      <Users className="w-5 h-5" />
                     </div>
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">Update Profile</h3>
-                      <p className="text-sm text-gray-600">Manage your donor information</p>
+                    <div className="donor-action-info">
+                      <h3>Update Profile</h3>
+                      <p>Manage your donor information</p>
                     </div>
                   </Link>
 
                   <Link
                     to="/dashboard/available-requests"
-                    className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="donor-action-card"
                   >
-                    <div className="p-2 bg-blue-100 rounded-lg">
-                      <Heart className="w-5 h-5 text-blue-600" />
+                    <div className="donor-action-icon blue">
+                      <Heart className="w-5 h-5" />
                     </div>
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">View Blood Requests</h3>
-                      <p className="text-sm text-gray-600">See requests matching your blood type</p>
+                    <div className="donor-action-info">
+                      <h3>View Blood Requests</h3>
+                      <p>See requests matching your blood type</p>
                     </div>
                   </Link>
 
                   <Link
                     to="/dashboard/donations"
-                    className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="donor-action-card"
                   >
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <Calendar className="w-5 h-5 text-green-600" />
+                    <div className="donor-action-icon green">
+                      <Calendar className="w-5 h-5" />
                     </div>
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">Donation History</h3>
-                      <p className="text-sm text-gray-600">Track and verify your donations</p>
+                    <div className="donor-action-info">
+                      <h3>Donation History</h3>
+                      <p>Track and verify your donations</p>
                     </div>
                   </Link>
                   
                   <Link
                     to="/camps"
-                    className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                    className="donor-action-card"
                   >
-                    <div className="p-2 bg-green-100 rounded-lg">
-                      <Calendar className="w-5 h-5 text-green-600" />
+                    <div className="donor-action-icon green">
+                      <Calendar className="w-5 h-5" />
                     </div>
-                    <div className="ml-4">
-                      <h3 className="font-medium text-gray-900">Donation Camps</h3>
+                    <div className="donor-action-info">
+                      <h3>Donation Camps</h3>
                     </div>
                   </Link>
               </div>
@@ -237,9 +230,9 @@ function DonorDashboard({ user }) {
           </div>
 
           {/* Blood Requests List */}
-          <div>
+          <div className="card h-fit">
              <RequestsList 
-                limit={1} 
+                limit={5} 
                 showHeader={true} 
                 showFilters={false} 
                 showViewAll={true}

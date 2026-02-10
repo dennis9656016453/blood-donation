@@ -1807,17 +1807,7 @@
   position: relative;
 }
 
-.dashboard-page::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 300px;
-  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
-  opacity: 0.03;
-  z-index: 0;
-}
+
 
 .dashboard-loading {
   min-height: 100vh;

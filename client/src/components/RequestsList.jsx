@@ -17,7 +17,7 @@ import toast from 'react-hot-toast'
 
 import '../styles/dashboard.css'
 
-function RequestsList({ limit = null, showFilters = true, showHeader = true, showViewAll = false, role }) {
+function RequestsList({ limit = null, showFilters = true, showHeader = true, showViewAll = false, showCreateButton = true, role }) {
   const { user } = useAuth()
   const [requests, setRequests] = useState([])
   const [loading, setLoading] = useState(true)
@@ -125,7 +125,7 @@ function RequestsList({ limit = null, showFilters = true, showHeader = true, sho
                 View All ({totalRequests})
               </Link>
             )}
-            {activeRole === 'recipient' && (
+            {activeRole === 'recipient' && showCreateButton && (
               <Link
                 to="/dashboard/requests/create"
                 className="btn btn-primary create-req-btn"
@@ -190,7 +190,6 @@ function RequestsList({ limit = null, showFilters = true, showHeader = true, sho
                   onChange={(e) => setFilters({ ...filters, city: e.target.value })}
                   className="filter-input"
                 />
-                <MapPin className="filter-icon" />
               </div>
             </div>
 

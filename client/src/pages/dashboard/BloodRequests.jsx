@@ -1,7 +1,9 @@
 import { useSearchParams } from 'react-router-dom'
+import { Activity } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import RequestsList from '../../components/RequestsList'
 import '../../styles/dashboard.css'
+import './BloodRequests.css'
 
 function BloodRequests({ role }) {
   const [searchParams] = useSearchParams()
@@ -20,25 +22,32 @@ function BloodRequests({ role }) {
 
   return (
     <div className="dashboard-page">
-      <div className="container">
-        <div className="dashboard-header" style={{ marginBottom: '2rem' }}>
-          <div>
-            <h1 className="dashboard-title">
-              {currentRole === 'recipient' ? 'My Requests' : 'Blood Requests'}
-            </h1>
-            <p className="dashboard-subtitle">
-              {currentRole === 'recipient' 
-                ? 'Manage your blood creation requests' 
-                : 'Browse and respond to blood donation requests'}
-            </p>
+      <div className="container animate-fade-in">
+        <div className="requests-page-card">
+          <div className="page-header-container">
+            <div className="page-header-icon animate-slide-up">
+              <Activity size={32} />
+            </div>
+            <div>
+              <h1 className="page-title">
+                {currentRole === 'recipient' ? 'My Requests' : 'Blood Requests'}
+              </h1>
+              <p className="page-description">
+                {currentRole === 'recipient' 
+                  ? 'Manage your blood creation requests' 
+                  : 'Browse and respond to blood donation requests'}
+              </p>
+            </div>
+          </div>
+          
+          <div className="animate-slide-up" style={{ animationDelay: '0.3s' }}>
+            <RequestsList 
+              showHeader={false} 
+              showFilters={true} 
+              role={currentRole}
+            />
           </div>
         </div>
-        
-        <RequestsList 
-          showHeader={false} 
-          showFilters={true} 
-          role={currentRole}
-        />
       </div>
     </div>
   )
